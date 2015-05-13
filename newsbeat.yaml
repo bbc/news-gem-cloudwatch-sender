@@ -123,3 +123,23 @@ metric_types:
       unit: "Bytes"
       statistics:
         - Average
+-
+  namespace: "AWS/EC2"
+  ec2_component: "BBCComponent"
+  metric_name: "newsbeat-topic-renderer"
+  metrics:
+    -
+      name: "CPUUtilization"
+      unit: "Percent"
+      statistics:
+        - Average
+    -
+      name: "NetworkIn"
+      unit: "Bytes"
+      statistics:
+        - Average
+    -
+      name: "NetworkOut"
+      unit: "Bytes"
+      statistics:
+        - Average
