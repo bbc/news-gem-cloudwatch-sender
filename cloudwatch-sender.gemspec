@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = CloudwatchSender::VERSION
   spec.authors       = ["DaveBlooman"]
   spec.email         = ["david.blooman@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = "Cloudwatch Metrics Sender"
+  spec.description   = "Get metrics from Cloudwatch and send to Graphite/InfluxDB"
   spec.homepage      = ""
   spec.license       = "MIT"
 

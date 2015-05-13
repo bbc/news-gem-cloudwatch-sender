@@ -28,7 +28,7 @@ class CustomFetcher
     resp = cloudwatch.get_metric_statistics(
       :namespace   => component_meta['namespace'],
       :metric_name => metric['name'],
-      :start_time  => Time.now - 300,
+      :start_time  => Time.now - 180,
       :end_time    => Time.now,
       :period      => 60,
       :statistics  => metric['statistics'],
