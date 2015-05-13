@@ -42,7 +42,7 @@ class EC2Fetcher
         :namespace   => component_meta['namespace'],
         :metric_name => metric['name'],
         :dimensions  => [{ :name => "InstanceId", :value => instance }],
-        :start_time  => Time.now - 60,
+        :start_time  => Time.now - 300,
         :end_time    => Time.now,
         :period      => 60,
         :statistics  => metric['statistics'],
@@ -60,12 +60,8 @@ class EC2Fetcher
   end
 
   def check_statistics(instanceid, name, label, statistics, time, data)
-    if statistics.is_a?(Array)
-      statistics.each do |stat|
-        sender.send_tcp("#{metric_prefix}.#{name}.#{instanceid}.#{label.downcase}.#{stat}" " " "#{data[stat.downcase]}" " "  "#{time}")
-      end
-    else
-      sender.send_tcp("#{metric_prefix}.#{name}.#{instanceid}.#{label.downcase}.#{statistics}" " " "#{statistics}" " "  "#{time}")
+    statistics.each do |stat|
+      sender.send_tcp("#{metric_prefix}.#{name}.#{instanceid}.#{label.downcase}.#{stat}" " " "#{data[stat.downcase]}" " "  "#{time}")
     end
   end
 end

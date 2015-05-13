@@ -13,49 +13,16 @@ metric_types:
       unit: "Percent"
       statistics:
         - Average
-        - Minimum
-        - Maximum
     -
       name: "NetworkIn"
       unit: "Bytes"
       statistics:
         - Average
-        - Minimum
-        - Maximum
     -
       name: "NetworkOut"
       unit: "Bytes"
       statistics:
         - Average
-        - Minimum
-        - Maximum
--
-  namespace: "AWS/EC2"
-  ec2_component: "BBCComponent"
-  metric_name: "newsbeat-composition"
-  metrics:
-    -
-      name: "CPUUtilization"
-      unit: "Percent"
-      statistics:
-        - Average
-        - Minimum
-        - Maximum
-    -
-      name: "NetworkIn"
-      unit: "Bytes"
-      statistics:
-        - Average
-        - Minimum
-        - Maximum
-    -
-      name: "NetworkOut"
-      unit: "Bytes"
-      statistics:
-        - Average
-        - Minimum
-        - Maximum
-
 -
   namespace: "AWS/EC2"
   ec2_component: "BBCComponent"
@@ -66,19 +33,13 @@ metric_types:
       unit: "Percent"
       statistics:
         - Average
-        - Minimum
-        - Maximum
     -
       name: "NetworkIn"
       unit: "Bytes"
       statistics:
         - Average
-        - Minimum
-        - Maximum
     -
       name: "NetworkOut"
       unit: "Bytes"
       statistics:
         - Average
-        - Minimum
-        - Maximum

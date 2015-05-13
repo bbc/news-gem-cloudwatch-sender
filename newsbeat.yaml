@@ -1,0 +1,125 @@
+---
+metric_prefix: "cloudwatch"
+influx_host: "influxdb.news.cloud.bbc.co.uk"
+influx_port: 2003
+metric_types:
+-
+  namespace: "AWS/EC2"
+  ec2_component: "BBCComponent"
+  metric_name: "newsbeat-composition"
+  metrics:
+    -
+      name: "CPUUtilization"
+      unit: "Percent"
+      statistics:
+        - Average
+    -
+      name: "NetworkIn"
+      unit: "Bytes"
+      statistics:
+        - Average
+    -
+      name: "NetworkOut"
+      unit: "Bytes"
+      statistics:
+        - Average
+-
+  namespace: "AWS/EC2"
+  ec2_component: "BBCComponent"
+  metric_name: "newsbeat-article-renderer"
+  metrics:
+    -
+      name: "CPUUtilization"
+      unit: "Percent"
+      statistics:
+        - Average
+    -
+      name: "NetworkIn"
+      unit: "Bytes"
+      statistics:
+        - Average
+    -
+      name: "NetworkOut"
+      unit: "Bytes"
+      statistics:
+        - Average
+-
+  namespace: "AWS/EC2"
+  ec2_component: "BBCComponent"
+  metric_name: "newsbeat-broker"
+  metrics:
+    -
+      name: "CPUUtilization"
+      unit: "Percent"
+      statistics:
+        - Average
+    -
+      name: "NetworkIn"
+      unit: "Bytes"
+      statistics:
+        - Average
+    -
+      name: "NetworkOut"
+      unit: "Bytes"
+      statistics:
+        - Average
+-
+  namespace: "AWS/EC2"
+  ec2_component: "BBCComponent"
+  metric_name: "newsbeat-most-popular-renderer"
+  metrics:
+    -
+      name: "CPUUtilization"
+      unit: "Percent"
+      statistics:
+        - Average
+    -
+      name: "NetworkIn"
+      unit: "Bytes"
+      statistics:
+        - Average
+    -
+      name: "NetworkOut"
+      unit: "Bytes"
+      statistics:
+        - Average
+-
+  namespace: "AWS/EC2"
+  ec2_component: "BBCComponent"
+  metric_name: "newsbeat-latest-feed-renderer"
+  metrics:
+    -
+      name: "CPUUtilization"
+      unit: "Percent"
+      statistics:
+        - Average
+    -
+      name: "NetworkIn"
+      unit: "Bytes"
+      statistics:
+        - Average
+    -
+      name: "NetworkOut"
+      unit: "Bytes"
+      statistics:
+        - Average
+-
+  namespace: "AWS/EC2"
+  ec2_component: "BBCComponent"
+  metric_name: "newsbeat-editorial-feed-renderer"
+  metrics:
+    -
+      name: "CPUUtilization"
+      unit: "Percent"
+      statistics:
+        - Average
+    -
+      name: "NetworkIn"
+      unit: "Bytes"
+      statistics:
+        - Average
+    -
+      name: "NetworkOut"
+      unit: "Bytes"
+      statistics:
+        - Average

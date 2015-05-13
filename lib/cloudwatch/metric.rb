@@ -7,7 +7,7 @@ class MetricDefinition
       when "AWS/S3"
         S3Fetcher.new(components, key_id, access_key, region).retrieve
       else
-        p "bugger"
+        CustomFetcher.new(components, key_id, access_key, region).retrieve
       end
     end
   end

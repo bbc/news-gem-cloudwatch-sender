@@ -1,0 +1,28 @@
+---
+metric_prefix: "cloudwatch"
+influx_host: "influxdb.news.cloud.bbc.co.uk"
+influx_port: 2003
+metric_types:
+-
+  namespace: "BBCApp/general-election-2015-broker/live"
+  metrics:
+    -
+      name: "BrokerResponse404"
+      unit: "Count"
+      statistics:
+        - Average
+    -
+      name: "BrokerCacheClientGetKeyMiss"
+      unit: "Count"
+      statistics:
+        - Average
+    -
+      name: "BrokerResponse200"
+      unit: "Count"
+      statistics:
+        - Average
+    -
+      name: "CacheGets"
+      unit: "Count"
+      statistics:
+        - Average
