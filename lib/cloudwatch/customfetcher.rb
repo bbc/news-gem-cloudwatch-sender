@@ -31,7 +31,7 @@ class CustomFetcher
       :start_time  => Time.now - 300,
       :end_time    => Time.now,
       :period      => 60,
-      :statistics  => %w(Average Minimum Maximum),
+      :statistics  => metric['statistics'],
       :unit        => metric['unit']
       )
     name = component_meta['namespace'].downcase
