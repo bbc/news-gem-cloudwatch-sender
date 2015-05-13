@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 
 begin
-  require "cloudwatch/cli"
-  CloudwatchSender::CLI.start
+  require "cloudwatch/sender/cli"
+  Cloudwatch::Sender::CLI.start
 rescue Interrupt
   puts "\nQuitting..."
   exit 1

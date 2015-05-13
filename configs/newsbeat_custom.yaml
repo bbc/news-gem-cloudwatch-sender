@@ -1,0 +1,239 @@
+---
+metric_prefix: "cloudwatch"
+influx_host: "influxdb.news.cloud.bbc.co.uk"
+influx_port: 2003
+metric_types:
+-
+  namespace: "BBCApp/newsbeat-composition/live"
+  metrics:
+    -
+      name: "Headline301Redirect"
+      unit: "Count"
+      statistics:
+        - Sum
+    -
+      name: "InvalidHeadline"
+      unit: "Count"
+      statistics:
+        - Sum
+    -
+      name: "LegacyArticle"
+      unit: "Count"
+      statistics:
+        - Sum
+    -
+      name: "LegacyArticle301Redirect"
+      unit: "Count"
+      statistics:
+        - Sum
+    -
+      name: "LegacyFailedHeadlineFetch"
+      unit: "Count"
+      statistics:
+        - Sum
+    -
+      name: "ValidatorFailedHeadlineFetch"
+      unit: "Count"
+      statistics:
+        - Sum
+-
+  namespace: "BBCApp/newsbeat-editorial-feed-renderer/live"
+  metrics:
+    -
+      name: "AsynchronouslyArchivedData"
+      unit: "Count"
+      statistics:
+        - Sum
+    -
+      name: "BrokerCacheClientNoConfigEndpoint"
+      unit: "Count"
+      statistics:
+        - Sum
+    -
+      name: "CachePuts"
+      unit: "Count"
+      statistics:
+        - Sum
+    -
+      name: "Exceptions"
+      unit: "Count"
+      statistics:
+        - Sum
+    -
+      name: "IndexesRendered"
+      unit: "Count"
+      statistics:
+        - Sum
+    -
+      name: "MessagesReceived"
+      unit: "Count"
+      statistics:
+        - Sum
+    -
+      name: "SequencerFailedConditionalChecks"
+      unit: "Count"
+      statistics:
+        - Sum
+    -
+      name: "SynchronouslyArchivedData"
+      unit: "Count"
+      statistics:
+        - Sum
+
+-
+  namespace: "BBCApp/newsbeat-topic-renderer/live"
+  metrics:
+    -
+      name: "AsynchronouslyArchivedData"
+      unit: "Count"
+      statistics:
+        - Sum
+    -
+      name: "BrokerCacheClientNoConfigEndpoint"
+      unit: "Count"
+      statistics:
+        - Sum
+    -
+      name: "CachePuts"
+      unit: "Count"
+      statistics:
+        - Sum
+    -
+      name: "CircuitBrokenExceptions"
+      unit: "Count"
+      statistics:
+        - Sum
+    -
+      name: "Exceptions"
+      unit: "Count"
+      statistics:
+        - Sum
+    -
+      name: "IndexesRendered"
+      unit: "Count"
+      statistics:
+        - Sum
+    -
+      name: "MessagesReceived"
+      unit: "Count"
+      statistics:
+        - Sum
+    -
+      name: "SequencerFailedConditionalChecks"
+      unit: "Count"
+      statistics:
+        - Sum
+    -
+      name: "SequencerNonSequentialMessageCount"
+      unit: "Count"
+      statistics:
+        - Sum
+    -
+      name: "SynchronouslyArchivedData"
+      unit: "Count"
+      statistics:
+        - Sum
+-
+  namespace: "BBCApp/newsbeat-latest-feed-renderer/live"
+  metrics:
+    -
+      name: "AsynchronouslyArchivedData"
+      unit: "Count"
+      statistics:
+        - Sum
+    -
+      name: "BrokerCacheClientNoConfigEndpoint"
+      unit: "Count"
+      statistics:
+        - Sum
+    -
+      name: "CachePuts"
+      unit: "Count"
+      statistics:
+        - Sum
+    -
+      name: "MessagesReceived"
+      unit: "Count"
+      statistics:
+        - Sum
+    -
+      name: "SynchronouslyArchivedData"
+      unit: "Count"
+      statistics:
+        - Sum
+-
+  namespace: "BBCApp/newsbeat-broker/live"
+  metrics:
+    -
+      name: "CacheGets"
+      unit: "Count"
+      statistics:
+        - Sum
+    -
+      name: "GetKeyMiss"
+      unit: "Count"
+      statistics:
+        - Sum
+    -
+      name: "S3CacheMiss"
+      unit: "Count"
+      statistics:
+        - Sum
+    -
+      name: "S3InvalidCacheKey"
+      unit: "Count"
+      statistics:
+        - Sum
+-
+  namespace:  "BBCApp/newsbeat-article-renderer/live"
+  metrics:
+    -
+      name: "ArticlesRendered"
+      unit: "Count"
+      statistics:
+        - Sum
+    -
+      name: "AsynchronouslyArchivedData"
+      unit: "Count"
+      statistics:
+        - Sum
+    -
+      name: "BrokerCacheClientNoConfigEndpoint"
+      unit: "Count"
+      statistics:
+        - Sum
+    -
+      name: "CachePuts"
+      unit: "Count"
+      statistics:
+        - Sum
+    -
+      name: "CircuitBrokenExceptions"
+      unit: "Count"
+      statistics:
+        - Sum
+    -
+      name: "ElementRenderingErrors"
+      unit: "Count"
+      statistics:
+        - Sum
+    -
+      name: "Exceptions"
+      unit: "Count"
+      statistics:
+        - Sum
+    -
+      name: "MessagesReceived"
+      unit: "Count"
+      statistics:
+        - Sum
+    -
+      name: "RestClientResourceNotFound"
+      unit: "Count"
+      statistics:
+        - Sum
+    -
+      name: "SynchronouslyArchivedData"
+      unit: "Count"
+      statistics:
+        - Sum
