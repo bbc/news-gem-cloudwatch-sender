@@ -4,6 +4,7 @@ require 'cloudwatch/ec2'
 require 'cloudwatch/ec2fetcher'
 require 'cloudwatch/metric'
 require 'cloudwatch/customfetcher'
+require 'cloudwatch/sqsfetcher'
 
 class CloudwatchSender::CLI < Thor
   include Thor::Actions

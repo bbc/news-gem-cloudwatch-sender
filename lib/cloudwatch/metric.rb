@@ -4,8 +4,8 @@ class MetricDefinition
       case component_meta['namespace']
       when "AWS/EC2"
         EC2Fetcher.new(components, key_id, access_key, region).retrieve
-      when "AWS/S3"
-        S3Fetcher.new(components, key_id, access_key, region).retrieve
+      when "AWS/SQS"
+        SQSFetcher.new(components, key_id, access_key, region).retrieve
       else
         CustomFetcher.new(components, key_id, access_key, region).retrieve
       end

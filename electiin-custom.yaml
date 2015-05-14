@@ -10,19 +10,19 @@ metric_types:
       name: "BrokerResponse404"
       unit: "Count"
       statistics:
-        - Average
+        - Sum
     -
       name: "BrokerCacheClientGetKeyMiss"
       unit: "Count"
       statistics:
-        - Average
+        - Sum
     -
       name: "BrokerResponse200"
       unit: "Count"
       statistics:
-        - Average
+        - Sum
     -
       name: "CacheGets"
       unit: "Count"
       statistics:
-        - Average
+        - Sum
