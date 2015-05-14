@@ -48,7 +48,6 @@ class SQSFetcher
 
   def check_statistics(name, label, statistics, time, data, queue_name)
     statistics.each do |stat|
-      p ("#{metric_prefix}.#{name}.#{queue_name}.#{label.downcase}.#{stat.downcase}" " " "#{data[stat.downcase]}" " "  "#{time}")
       sender.send_tcp("#{metric_prefix}.#{name}.#{queue_name}.#{label.downcase}.#{stat.downcase}" " " "#{data[stat.downcase]}" " "  "#{time}")
     end
   end
