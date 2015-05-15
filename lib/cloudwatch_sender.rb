@@ -1,5 +1,5 @@
 require "cloudwatch/version"
 
-module CloudwatchSender
+module Cloudwatch::Sender
   autoload :CLI, "cloudwatch/cli"
 end

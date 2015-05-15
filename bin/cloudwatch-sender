@@ -2,7 +2,7 @@
 
 begin
   require "cloudwatch/cli"
-  CloudwatchSender::CLI.start
+  Cloudwatch::Sender::CLI.start
 rescue Interrupt
   puts "\nQuitting..."
   exit 1

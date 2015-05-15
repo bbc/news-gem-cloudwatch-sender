@@ -23,7 +23,7 @@ class EC2
           values: [value]
         }
       ]
-      )
+    )
 
     list_instance_ids(resp)
   end

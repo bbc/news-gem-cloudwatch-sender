@@ -1,16 +1,16 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'cloudwatch/version'
+require 'cloudwatch/sender/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "cloudwatch-sender"
-  spec.version       = CloudwatchSender::VERSION
+  spec.version       = Cloudwatch::Sender::VERSION
   spec.authors       = ["DaveBlooman"]
   spec.email         = ["david.blooman@gmail.com"]
   spec.summary       = "Cloudwatch Metrics Sender"
   spec.description   = "Get metrics from Cloudwatch and send to Graphite/InfluxDB"
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/BBC-News/cloudwatch-sender"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")

@@ -3,7 +3,7 @@ require "aws-sdk"
 require "json"
 require "yaml"
 
-module CloudwatchSender
+module Cloudwatch::Sender
   class Base
     attr_accessor :influx_server, :influx_port
 

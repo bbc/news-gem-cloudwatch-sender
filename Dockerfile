@@ -1,9 +1,8 @@
 FROM ruby:2.2
-
-RUN bundle config --global frozen 1
+MAINTAINER David Blooman <david.blooman@bbc.co.uk>
+LABEL https://github.com/BBC-News/cloudwatch-sender
 
 RUN mkdir  /app
-
 ADD . /app
 
 WORKDIR /app
