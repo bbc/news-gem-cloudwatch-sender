@@ -2,14 +2,9 @@ module Cloudwatch
   module Sender
     module Fetcher
       class Base
-        attr_reader :components, :metric_prefix, :cloudwatch, :sender, :namespace
-
         def initialize(components, namespace)
           @components = components
-          @metric_prefix = components["metric_prefix"]
           @namespace = namespace
-          @sender = Cloudwatch::Sender::Base.new(components["influx_host"], components["influx_port"])
-          @cloudwatch = Aws::CloudWatch::Client.new
         end
 
         def retrieve
@@ -18,6 +13,22 @@ module Cloudwatch
               metric_type(component_meta, metric)
             end
           end
+        end
+
+        private
+
+        attr_reader :components, :metric_prefix, :cloudwatch, :sender, :namespace
+
+        def metric_prefix
+          components["metric_prefix"]
+        end
+
+        def sender
+          Cloudwatch::Sender::Base.new(components["influx_host"], components["influx_port"])
+        end
+
+        def cloudwatch
+          Aws::CloudWatch::Client.new
         end
 
         def metric_type(component_meta, metric)

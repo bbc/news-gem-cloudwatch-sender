@@ -15,8 +15,7 @@ module Cloudwatch
       desc "send_metrics [metrics_file] [key_id] [access_key] [region]", "gets metrics from Cloudwatch and sends them to influx"
       def send_metrics(metrics_file, key_id, access_key, region)
         setup_aws(key_id, access_key, region)
-        components = load_metrics(metrics_file)
-        MetricDefinition.metric_type(components)
+        MetricDefinition.metric_type load_metrics(metrics_file)
       end
 
       no_commands do
@@ -25,8 +24,8 @@ module Cloudwatch
         end
 
         def setup_aws(key_id, access_key, region)
-          Aws.config.update(region: region,
-                            credentials: Aws::Credentials.new(key_id, access_key))
+          Aws.config.update(:region      => region,
+                            :credentials => Aws::Credentials.new(key_id, access_key))
         end
       end
     end
