@@ -3,7 +3,6 @@ PATH
   specs:
     cloudwatch-sender (0.0.1)
       aws-sdk
-      logger
       thor
 
 GEM
@@ -20,7 +19,6 @@ GEM
     builder (3.2.2)
     jmespath (1.0.2)
       multi_json (~> 1.0)
-    logger (1.2.8)
     multi_json (1.11.0)
     rake (10.4.2)
     thor (0.19.1)

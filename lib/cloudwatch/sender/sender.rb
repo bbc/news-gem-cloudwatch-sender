@@ -1,5 +1,3 @@
-require "logger"
-require "aws-sdk"
 require "json"
 require "yaml"
 
@@ -17,7 +15,7 @@ module Cloudwatch
         sock = TCPSocket.open(influx_server, influx_port)
         sock.print(contents)
       rescue StandardError => e
-        @logger.debug("Error : #{e}")
+        logger.debug("Error : #{e}")
       ensure
         sock.close
       end
