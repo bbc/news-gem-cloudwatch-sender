@@ -10,7 +10,8 @@ module Cloudwatch
       end
 
       def send_tcp(contents)
-        TCPSocket.open(influx_server, influx_port).print contents
+        sock = TCPSocket.open(influx_server, influx_port)
+        sock.print contents
       rescue StandardError => e
         logger.debug "Error: #{e}"
       ensure
