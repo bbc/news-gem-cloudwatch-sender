@@ -4,8 +4,6 @@ require "yaml"
 module Cloudwatch
   module Sender
     class Base
-      attr_accessor :influx_server, :influx_port
-
       def initialize(server, port)
         @influx_server = server
         @influx_port   = port
@@ -13,12 +11,16 @@ module Cloudwatch
 
       def send_tcp(contents)
         sock = TCPSocket.open(influx_server, influx_port)
-        sock.print(contents)
+        sock.print contents
       rescue StandardError => e
-        logger.debug("Error : #{e}")
+        logger.debug "Error: #{e}"
       ensure
         sock.close
       end
+
+      protected
+
+      attr_reader :influx_server, :influx_port
     end
   end
 end
