@@ -30,11 +30,11 @@ module Cloudwatch
         end
 
         def fetcher(component_meta)
-          namespace.start_with?("AWS/") ? Object.const_get(id component_meta)
+          namespace.start_with?("AWS/") ? Object.const_get(class_namespace component_meta)
                                         : Cloudwatch::Sender::Fetcher::Custom
         end
 
-        def id(component_meta)
+        def class_namespace(component_meta)
           "Cloudwatch::Sender::Fetcher::#{extract_class_name component_meta}"
         end
 
