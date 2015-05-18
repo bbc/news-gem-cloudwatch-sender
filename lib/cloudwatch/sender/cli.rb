@@ -1,6 +1,5 @@
 require "thor"
 require "logger"
-require "cloudwatch/sender/sender"
 require "cloudwatch/sender/ec2"
 require "cloudwatch/sender/metric_definition"
 require "cloudwatch/sender/fetcher/base"
