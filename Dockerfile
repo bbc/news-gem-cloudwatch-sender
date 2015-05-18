@@ -1,6 +1,6 @@
 FROM ruby:2.2
 MAINTAINER David Blooman <david.blooman@bbc.co.uk>
-LABEL https://github.com/BBC-News/cloudwatch-sender
+LABEL version=beta
 
 RUN mkdir  /app
 ADD . /app

@@ -10,7 +10,7 @@ module Cloudwatch
           @metric_prefix = metric_prefix
         end
 
-        START_TIME = 300
+        START_TIME = 1200
 
         def metrics(component_meta, metric)
           resp = cloudwatch.get_metric_statistics(

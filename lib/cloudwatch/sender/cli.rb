@@ -24,11 +24,13 @@ module Cloudwatch
         logger = Logger.new(STDOUT)
 
         loop do
-          send_metrics(metrics_file, key_id, access_key, region)
-          sleep sleep_time.to_i
+          begin
+            send_metrics(metrics_file, key_id, access_key, region)
+            sleep sleep_time.to_i
+          rescue => e
+            logger.debug("Unable to complete operation #{e}")
+          end
         end
-        rescue => e
-          logger.debug("Unable to complete operation #{e}")
       end
 
       no_commands do
