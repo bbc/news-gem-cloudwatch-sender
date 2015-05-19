@@ -6,7 +6,7 @@
 
 ## What is this?
 
-Allows you to send **EC2**, **SQS** and **custom** metrics from Cloudwatch to InfluxDB or Graphite. EC2 metrics are gathered via EC2 tags, instead of EC2 Instance ID, making the tool far more dynamic.
+Allows you to send **EC2**, **SQS** and **custom** metrics from Cloudwatch to InfluxDB or Graphite. EC2 metrics are gathered via EC2 tags instead of EC2 Instance IDs, making the tool far more dynamic.
 
 ## Installation
 
@@ -33,16 +33,16 @@ gem install cloudwatch-sender
 ### Command Line
 
 ```sh
-cloudwatch-sender send_metrics /path/to/config.yaml $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY $AWS_REGION
+cloudwatch-sender send_metrics /path/to/config.yaml $AWS_ACCESS_KEY $AWS_SECRET_KEY $AWS_REGION
 ```
 
 If you would like to stream metrics to your endpoint at a set interval, use `continuous`:
 
 ```sh
-cloudwatch-sender continuous /path/to/config.yaml $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY $AWS_REGION $SLEEP_INTERVAL
+cloudwatch-sender continuous /path/to/config.yaml $AWS_ACCESS_KEY $AWS_SECRET_KEY $AWS_REGION $INTERVAL
 ```
 
-**Note** - the default `$SLEEP_INTERVAL` is 60 seconds.
+**Note** - the default `$INTERVAL` is 60 seconds.
 
 ### Programmatically
 
@@ -65,23 +65,24 @@ Cloudwatch::Sender::CLI.new.continuous(config_path, key_id, access_key, region, 
 
 The gem is powered via a YAML config file, see [metrics.yaml.example](https://github.com/BBC-News/cloudwatch-sender/blob/master/configs/metrics.yaml.example) for an example.
 
-**Note**: take into account how often metrics update when using the tool:
+**Note**: take into account how often metrics update for each AWS product:
 
-- EC2 - every 60 seconds.
-- SQS - every 5 minutes.
+- **EC2** - every 60 seconds.
+- **SQS** - every 5 minutes.
+- **Custom** - every 60 seconds.
 
 ## How it works
 
-The gem extracts metrics for a given set of EC2 instances based on a tag key/value. For example:
+The gem extracts metrics for a given set of EC2 instances based on an EC2 tag key/value. For example:
 
 ```yaml
 ec2_tag_key:   ProjectName
 ec2_tag_value: bbc_news
 ```
 
-As seen in the example above a tag relates to a single project, so each of the instances for that project are attached to that key/value pair for easy reference. Thus that key/value is called, it returns all the instances attached to it - which is what the gem uses to gather metrics on each instance.
+As seen in the example above a tag relates to a single project. Thus if that key/value is called, it returns all the instances attached to that project - which is what the gem then uses to gather metrics on each instance.
 
-EC2 metrics are collected for the previous 3 minutes and SQS 20 minutes. Thus running the gem every 60 seconds for EC2 and every 5 minutes for SQS will provide sufficient data. This allows for the gem to remain unaffected by network/database issues.
+The gem collects EC2 metrics for the previous 3 minutes and SQS metrics for the previous 20 minutes. Thus running the gem every 60 seconds for EC2 and every 5 minutes for SQS will provide sufficient data. This allows for the gem to remain unaffected by network/database issues.
 
 ## Why make this?
 
