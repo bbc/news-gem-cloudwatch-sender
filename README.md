@@ -42,12 +42,20 @@ Metrics are collected for the previous 180 for EC2 and 12000 seconds for SQS, ru
 ## Configs
 
 There is a defined structure for the yaml files to power cloudwatch-sender, these include extra options based on the metric that you may be using.  
-Copy the metrics.yaml.example in the configs directory to get started.  
-
+Copy the metrics.yaml.example to get started.
 
 ## TODO
 
 Add support for more metrics
+
+## License
+
+Standard MIT License, see included license file.
+
+## Credits
+
+ - [David Blooman](@dblooman)
+ - [Charlie Revett](@charlierevett)
 
 ## Contributing
 
