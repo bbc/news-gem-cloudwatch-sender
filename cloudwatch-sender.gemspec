@@ -6,8 +6,8 @@ require "cloudwatch/sender/version"
 Gem::Specification.new do |spec|
   spec.name          = "cloudwatch-sender"
   spec.version       = Cloudwatch::Sender::VERSION
-  spec.authors       = ["DaveBlooman"]
-  spec.email         = ["david.blooman@gmail.com"]
+  spec.authors       = ["DaveBlooman", "Charlie Revett"]
+  spec.email         = ["david.blooman@gmail.com", "charlierevett@gmail.com"]
   spec.summary       = "Cloudwatch Metrics Sender"
   spec.description   = "Get metrics from Cloudwatch and send to Graphite/InfluxDB"
   spec.homepage      = "https://github.com/BBC-News/cloudwatch-sender"
