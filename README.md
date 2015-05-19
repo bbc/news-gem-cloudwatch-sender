@@ -22,27 +22,32 @@ Or install it yourself as:
 
 ## Usage
 
+This Gem works different to most tools in that you provide a tag key for your EC2 instances.  This could be name for example, where the value is the name of your instance.  In our use case, we break down by component, so each of our instances are attached to a component namespace that we can reference later.  When we call that namespace, it returns all the instances attached to it, which would be 25-30 for normal production website.
 
 ```sh
-cloudwatch-sender send_metrics metrics.yaml $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY $AWS_REGION
+cloudwatch-sender send_metrics configs/metrics.yaml $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY $AWS_REGION
 ```
 
 If you want to run a continuous stream of metrics, you can use the following command
 
 ```sh
-cloudwatch-sender continous metrics.yaml $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY $AWS_REGION 60
+cloudwatch-sender continous configs/metrics.yaml $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY $AWS_REGION 60
 ```
 
 By default the sleep time is 60, but you can override that as shown above.  
 
-Metrics are collected for the previous 180 seconds, running once every 60 seconds should provide graphs with sufficient data.  The reason for 180 seconds is in the event you have network issues or issues with the database on the receiving end.
+Metrics are collected for the previous 180 for EC2 and 12000 seconds for SQS, running once every 60 seconds for EC2 and every 5 minutes for SQS should provide graphs with sufficient data.  The reason for these timings is in the event you have network issues or issues with the database on the receiving end.  SQS also only updates every 5 minutes, so request the 2 previous metrics is prudent for consistent graphs.
 
 
 ## Configs
 
 There is a defined structure for the yaml files to power cloudwatch-sender, these include extra options based on the metric that you may be using.  
-Copy the metrics.yaml.example to get started.
+Copy the metrics.yaml.example in the configs directory to get started.  
 
+
+## TODO
+
+Add support for more metrics
 
 ## Contributing
 
