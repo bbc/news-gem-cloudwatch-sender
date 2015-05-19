@@ -7,8 +7,8 @@ metric_types:
 ## EC2 Metrics
 -
   namespace: "AWS/EC2"
-  ec2_component: "BBCComponent"
-  metric_name: "newsbeat-composition"
+  ec2_tag_key: "BBCComponent"
+  ec2_tag_value: "newsbeat-composition"
   metrics:
     -
       name: "CPUUtilization"
