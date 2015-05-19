@@ -22,7 +22,7 @@ module Cloudwatch
           instance_list.each do |instance|
             metric_data = aws_metric_meta(component_meta, metric, instance)
             resp = cloudwatch.get_metric_statistics metric_data
-            name_metrics(resp, instance, component_meta["metric_name"], metric["statistics"])
+            name_metrics(resp, instance, component_meta["ec2_tag_value"], metric["statistics"])
           end
         end
 
@@ -44,7 +44,9 @@ module Cloudwatch
         end
 
         def instance_list(component_meta)
-          ec2.list_instances(component_meta["ec2_component"], component_meta["metric_name"]).flatten
+          ec2.list_instances(
+            component_meta["ec2_tag_key"], component_meta["ec2_tag_value"]
+          ).flatten
         end
 
         def name_metrics(resp, instance, name, statistics)
