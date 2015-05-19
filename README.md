@@ -63,7 +63,7 @@ Cloudwatch::Sender::CLI.new.continuous(config_path, key_id, access_key, region, 
 
 ## Configs
 
-The gem is powered via a YAML config file, see [metrics.yaml.example](https://github.com/BBC-News/cloudwatch-sender/blob/master/configs/metrics.yaml.example) for an example.
+The gem is powered via a YAML config file, see [example.yaml](https://github.com/BBC-News/cloudwatch-sender/blob/master/configs/example.yaml) for an example.
 
 **Note**: take into account how often metrics update for each AWS product:
 
