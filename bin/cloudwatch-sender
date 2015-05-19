@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+begin
+  require "cloudwatch/sender/cli"
+  Cloudwatch::Sender::CLI.start
+rescue Interrupt
+  puts "\nQuitting..."
+  exit 1
+rescue SystemExit => e
+  exit e.status
+end
