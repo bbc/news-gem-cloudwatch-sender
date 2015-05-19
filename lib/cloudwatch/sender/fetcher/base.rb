@@ -9,11 +9,9 @@ module Cloudwatch
           @namespace  = namespace
         end
 
-        def retrieve
-          components["metric_types"].each do |component_meta|
-            component_meta["metrics"].each do |metric|
-              metric_type(component_meta, metric)
-            end
+        def retrieve(component_meta)
+          component_meta["metrics"].each do |metric|
+            metric_type(component_meta, metric)
           end
         end
 
