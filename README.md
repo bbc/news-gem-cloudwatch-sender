@@ -1,7 +1,7 @@
 <h1 align="center">cloudwatch-sender</h1>
 
 <p align="center">
-  <a href="https://rubygems.org/gems/cloudwatch-sender"><img src="https://img.shields.io/gem/v/formatador.svg?style=flat-square"></a>
+  <a href="https://rubygems.org/gems/cloudwatch-sender"><img src="https://img.shields.io/gem/v/cloudwatch-sender.svg?style=flat-square"></a>
 </p>
 
 <p align="center">
