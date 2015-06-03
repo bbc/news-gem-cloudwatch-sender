@@ -63,6 +63,7 @@ module Cloudwatch
             if (options['access_key_id'] || options['secret_access_key']) && ( ! options['access_key_id'] || !options['secret_access_key'])
               raise RequiredArgumentMissingError.new("'--access_key_id' and '--secret_access_key' required")
             end
+            credentials = Aws::Credentials.new(options['access_key_id'], options['secret_access_key'])
           end
           Aws.config.update(:region => region = (options['region'] || ENV['AWS_REGION']), :credentials => credentials)
         end
