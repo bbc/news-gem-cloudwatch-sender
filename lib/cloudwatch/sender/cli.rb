@@ -15,21 +15,21 @@ module Cloudwatch
       class_option :provider, :desc => 'AWS security provider', :required => false
       class_option :access_key_id, :desc => 'AWS access_key_id', :required => false
       class_option :secret_access_key, :desc => 'AWS secret_key_id', :required => false
-      class_option :region, :desc => 'AWS region', :required => true
+      class_option :region, :desc => 'AWS region', :required => false
 
       desc "send_metrics [metrics_file]", "Gets metrics from Cloudwatch and sends them to influx"
-      def send_metrics(metrics_file)
-        setup_aws(options)
+      def send_metrics(metrics_file, opts = {})
+        setup_aws(options.merge(opts))
         MetricDefinition.metric_type load_metrics(metrics_file)
       end
 
       desc "continuous [metrics_file] [sleep time]", "Continuously sends metrics to Influx/Cloudwatch"
-      def continuous(metrics_file, sleep_time = 60)
+      def continuous(metrics_file, sleep_time = 60, opts = {})
         logger = Logger.new(STDOUT)
 
         loop do
           begin
-            send_metrics(metrics_file)
+            send_metrics(metrics_file, options.merge(opts))
             sleep sleep_time.to_i
           rescue RequiredArgumentMissingError, ArgumentError => e
             logger.error("Required argument invalid or missing '#{e}'")
