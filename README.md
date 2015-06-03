@@ -37,16 +37,20 @@ gem install cloudwatch-sender
 ### Command Line
 
 ```sh
-cloudwatch-sender send_metrics /path/to/config.yaml $AWS_ACCESS_KEY $AWS_SECRET_KEY $AWS_REGION
+cloudwatch-sender send_metrics /path/to/config.yaml --region=eu-west-1 --access-key-id=$AWS_ACCESS_KEY --secret-access-key= $AWS_SECRET_KEY
 ```
 
 If you would like to stream metrics to your endpoint at a set interval, use `continuous`:
 
 ```sh
-cloudwatch-sender continuous /path/to/config.yaml $AWS_ACCESS_KEY $AWS_SECRET_KEY $AWS_REGION $INTERVAL
+cloudwatch-sender continuous /path/to/config.yaml --region=eu-west-1 $INTERVAL --access-key-id=$AWS_ACCESS_KEY --secret-access-key= $AWS_SECRET_KEY
 ```
 
 **Note** - the default `$INTERVAL` is 60 seconds.
+
+```sh
+cloudwatch-sender continuous /path/to/config.yaml --region=eu-west-1 $INTERVAL --provider=iam
+```
 
 ### Programmatically
 
@@ -54,7 +58,7 @@ cloudwatch-sender continuous /path/to/config.yaml $AWS_ACCESS_KEY $AWS_SECRET_KE
 require "cloudwatch/sender/cli"
 
 loop do
-  Cloudwatch::Sender::CLI.new.send_metrics(config_path, key_id, access_key, region)
+  Cloudwatch::Sender::CLI.new.send_metrics(config_path = './configs/default.yml', { 'region' => 'eu-west-1', 'provider' => 'iam'})
   sleep 120
 end
 ```
@@ -62,7 +66,7 @@ end
 ```ruby
 require "cloudwatch/sender/cli"
 
-Cloudwatch::Sender::CLI.new.continuous(config_path, key_id, access_key, region, sleep_time)
+Cloudwatch::Sender::CLI.new.continuous(config_path = './configs/default.yml', 60, { 'region' => 'eu-west-1', 'provider' => 'iam'})
 ```
 
 ## Configs
