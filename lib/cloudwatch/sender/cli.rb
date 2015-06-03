@@ -12,20 +12,31 @@ module Cloudwatch
     class CLI < Thor
       include Thor::Actions
 
-      desc "send_metrics [metrics_file] [key_id] [access_key] [region]", "Gets metrics from Cloudwatch and sends them to influx"
-      def send_metrics(metrics_file, key_id, access_key, region)
-        setup_aws(key_id, access_key, region)
+      class_option :provider, :desc => 'AWS security provider', :required => false
+      class_option :access_key_id, :desc => 'AWS access_key_id', :required => false
+      class_option :secret_access_key, :desc => 'AWS secret_key_id', :required => false
+      class_option :region, :desc => 'AWS region', :required => true
+
+      desc "send_metrics [metrics_file]", "Gets metrics from Cloudwatch and sends them to influx"
+      def send_metrics(metrics_file)
+        setup_aws(options)
         MetricDefinition.metric_type load_metrics(metrics_file)
       end
 
-      desc "continuous [metrics_file] [key_id] [access_key] [region] [sleep time]", "Continuously sends metrics to Influx/Cloudwatch"
-      def continuous(metrics_file, key_id, access_key, region, sleep_time = 60)
+      desc "continuous [metrics_file] [sleep time]", "Continuously sends metrics to Influx/Cloudwatch"
+      def continuous(metrics_file, sleep_time = 60)
         logger = Logger.new(STDOUT)
 
         loop do
           begin
-            send_metrics(metrics_file, key_id, access_key, region)
+            send_metrics(metrics_file)
             sleep sleep_time.to_i
+          rescue RequiredArgumentMissingError, ArgumentError => e
+            logger.error("Required argument invalid or missing '#{e}'")
+            exit(1)
+          rescue Aws::Errors::MissingCredentialsError => e
+            logger.error("#{e}")
+            exit(1)
           rescue => e
             logger.debug("Unable to complete operation #{e}")
           end
@@ -37,9 +48,23 @@ module Cloudwatch
           YAML.load(File.open(metrics_file))
         end
 
-        def setup_aws(key_id, access_key, region)
-          Aws.config.update(:region      => region,
-                            :credentials => Aws::Credentials.new(key_id, access_key))
+        def setup_aws(options)
+          credentials = nil
+          if options['provider']
+            case true
+              when ['iam', 'instance_profile'].include?(options['provider'].downcase)
+                credentials = Aws::InstanceProfileCredentials.new
+              when (options['access_key_id'])
+                credentials = Aws::Credentials.new(options['access_key_id'], options['secret_access_key'])
+              else
+               raise ArgumentError.new("'--provider' invalid argument '#{options['provider']}'")
+            end
+          else
+            if (options['access_key_id'] || options['secret_access_key']) && ( ! options['access_key_id'] || !options['secret_access_key'])
+              raise RequiredArgumentMissingError.new("'--access_key_id' and '--secret_access_key' required")
+            end
+          end
+          Aws.config.update(:region => region = (options['region'] || ENV['AWS_REGION']), :credentials => credentials)
         end
       end
     end
