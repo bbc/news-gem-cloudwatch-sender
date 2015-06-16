@@ -28,8 +28,7 @@ module Cloudwatch
         end
 
         def fetcher(component_meta)
-          namespace.start_with?("AWS/") ? Object.const_get(class_namespace component_meta)
-                                        : Cloudwatch::Sender::Fetcher::Custom
+          namespace.start_with?("AWS/") ? Object.const_get(class_namespace component_meta) : Cloudwatch::Sender::Fetcher::Custom
         end
 
         def class_namespace(component_meta)
@@ -40,9 +39,13 @@ module Cloudwatch
           components["metric_prefix"]
         end
 
+        def database
+          components["influx_database"]
+        end
+
         def metric_type(component_meta, metric)
           fetcher(component_meta).new(
-            cloudwatch, sender, metric_prefix
+            cloudwatch, sender, metric_prefix, database
           ).metrics(component_meta, metric)
         end
 
