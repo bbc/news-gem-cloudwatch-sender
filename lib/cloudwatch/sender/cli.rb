@@ -13,7 +13,7 @@ module Cloudwatch
     class CLI < Thor
       include Thor::Actions
 
-      class_option :provider, :desc => 'AWS security provider', :required => false
+      class_option :provider, :desc => 'AWS security provider', :required => false, :enum => ['iam','instance_profile']
       class_option :access_key_id, :desc => 'AWS access_key_id', :required => false
       class_option :secret_access_key, :desc => 'AWS secret_key_id', :required => false
       class_option :region, :desc => 'AWS region', :required => false
