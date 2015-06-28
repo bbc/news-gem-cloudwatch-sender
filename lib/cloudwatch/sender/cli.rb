@@ -1,11 +1,12 @@
-require "thor"
-require "logger"
-require "cloudwatch/sender/ec2"
-require "cloudwatch/sender/metric_definition"
-require "cloudwatch/sender/fetcher/base"
-require "cloudwatch/sender/fetcher/ec2"
-require "cloudwatch/sender/fetcher/sqs"
-require "cloudwatch/sender/fetcher/custom"
+require 'thor'
+require 'logger'
+require 'cloudwatch/sender/ec2'
+require 'cloudwatch/sender/credentials'
+require 'cloudwatch/sender/metric_definition'
+require 'cloudwatch/sender/fetcher/base'
+require 'cloudwatch/sender/fetcher/ec2'
+require 'cloudwatch/sender/fetcher/sqs'
+require 'cloudwatch/sender/fetcher/custom'
 
 module Cloudwatch
   module Sender
@@ -17,13 +18,13 @@ module Cloudwatch
       class_option :secret_access_key, :desc => 'AWS secret_key_id', :required => false
       class_option :region, :desc => 'AWS region', :required => false
 
-      desc "send_metrics [metrics_file]", "Gets metrics from Cloudwatch and sends them to influx"
+      desc 'send_metrics [metrics_file]', 'Gets metrics from Cloudwatch and sends them to influx'
       def send_metrics(metrics_file, opts = {})
-        setup_aws(options.merge(opts))
+        setup_aws(options.merge(opts), opts['provider'])
         MetricDefinition.metric_type load_metrics(metrics_file)
       end
 
-      desc "continuous [metrics_file] [sleep time]", "Continuously sends metrics to Influx/Cloudwatch"
+      desc 'continuous [metrics_file] [sleep time]', 'Continuously sends metrics to Influx/Cloudwatch'
       def continuous(metrics_file, sleep_time = 60, opts = {})
         logger = Logger.new(STDOUT)
 
@@ -43,29 +44,23 @@ module Cloudwatch
         end
       end
 
+
       no_commands do
         def load_metrics(metrics_file)
           YAML.load(File.open(metrics_file))
         end
 
-        def setup_aws(options)
-          credentials = nil
-          if options['provider']
-            case true
-              when ['iam', 'instance_profile'].include?(options['provider'].downcase)
-                credentials = Aws::InstanceProfileCredentials.new
-              when (options['access_key_id'])
-                credentials = Aws::Credentials.new(options['access_key_id'], options['secret_access_key'])
-              else
-               raise ArgumentError.new("'--provider' invalid argument '#{options['provider']}'")
-            end
+        def setup_aws(options, provider)
+          SetupAwsCredentials.send("#{validate_provider(provider)}".to_sym, options)
+        end
+
+        def validate_provider(provider)
+          return 'access_key_id' if provider.nil?
+          if %w(iam instance_profile).include? provider.downcase
+            provider.downcase
           else
-            if (options['access_key_id'] || options['secret_access_key']) && ( ! options['access_key_id'] || !options['secret_access_key'])
-              raise RequiredArgumentMissingError.new("'--access_key_id' and '--secret_access_key' required")
-            end
-            credentials = Aws::Credentials.new(options['access_key_id'], options['secret_access_key'])
+            fail ArgumentError.new("'--provider' invalid argument '#{options['provider']}'")
           end
-          Aws.config.update(:region => region = (options['region'] || ENV['AWS_REGION']), :credentials => credentials)
         end
       end
     end
