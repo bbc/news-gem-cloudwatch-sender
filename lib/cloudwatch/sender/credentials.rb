@@ -13,7 +13,6 @@ module Cloudwatch
         credentials = Aws::Credentials.new(options["access_key_id"], options["secret_access_key"])
         Aws.config.update(:region => (options["region"] || ENV["AWS_REGION"]), :credentials => credentials)
       rescue
-puts "XX"
         RequiredArgumentMissingError.new("'--access_key_id' and '--secret_access_key' required")
       end
 
