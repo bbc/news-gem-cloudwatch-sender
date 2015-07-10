@@ -1,0 +1,19 @@
+sudo: false
+cache: bundler
+language: ruby
+rvm:
+  - 2.1
+  - 2.2
+  - ruby-head
+matrix:
+  allow_failures:
+    - rvm: ruby-head
+  fast_finish: true
+before_install:
+  - gem update --remote bundler
+  - mkdir build;
+  - git clone https://github.com/BBC-News/rubocop-config.git build/rubocop-config
+install:
+  - bundle install --retry=3
+script:
+  - bundle exec rubocop -c build/rubocop-config/.rubocop.yml
