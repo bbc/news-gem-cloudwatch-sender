@@ -10,6 +10,7 @@ module Cloudwatch
       end
 
       def send_tcp(contents)
+        puts "#{influx_server}:#{influx_port} - #{contents}" if ENV['DEBUG']
         sock = TCPSocket.open(influx_server, influx_port)
         sock.print contents
       rescue StandardError => e
