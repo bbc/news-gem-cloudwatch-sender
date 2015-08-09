@@ -11,7 +11,7 @@ module Cloudwatch
           @database = database
         end
 
-        START_TIME = 18000
+        START_TIME = 18_000
 
         def metrics(component_meta, metric)
           resp = cloudwatch.get_metric_statistics(
@@ -38,7 +38,7 @@ module Cloudwatch
 
         def check_statistics(name, label, statistics, time, data)
           statistics.each do |stat|
-            sender.send_tcp({"database" => database, "points" => [{ "measurement" => metric_prefix, "tags" => { name.tr('^A-Za-z0-9','') => label.downcase }, "time" => time, "fields" => { "value" => data[stat.downcase] } }]}.to_json)
+            sender.send_tcp({ "database" => database, "points" => [{ "measurement" => metric_prefix, "tags" => { name.tr("^A-Za-z0-9", "") => label.downcase }, "time" => time, "fields" => { "value" => data[stat.downcase] } }] }.to_json)
           end
         end
       end

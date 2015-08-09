@@ -62,7 +62,7 @@ module Cloudwatch
 
         def check_statistics(instanceid, name, label, statistics, time, data)
           statistics.each do |stat|
-            sender.send_tcp({"database" => database, "points" => [{ "measurement" => metric_prefix, "tags" => { name.tr('^A-Za-z0-9','') => label.downcase, "instance" => instanceid.tr('-','') }, "time" => time, "fields" => { "value" => data[stat.downcase] } }]}.to_json)
+            sender.send_tcp({ "database" => database, "points" => [{ "measurement" => metric_prefix, "tags" => { name.tr("^A-Za-z0-9", "") => label.downcase, "instance" => instanceid.tr("-", "") }, "time" => time, "fields" => { "value" => data[stat.downcase] } }] }.to_json)
           end
         end
       end
