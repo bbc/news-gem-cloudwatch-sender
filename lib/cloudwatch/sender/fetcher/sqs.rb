@@ -2,12 +2,11 @@ module Cloudwatch
   module Sender
     module Fetcher
       class SQS
-        attr_reader :metric_prefix, :cloudwatch, :sender
+        attr_reader :cloudwatch, :sender
 
-        def initialize(cloudwatch, sender, metric_prefix)
+        def initialize(cloudwatch, sender)
           @cloudwatch = cloudwatch
           @sender = sender
-          @metric_prefix = metric_prefix
         end
 
         START_TIME = 1200
@@ -39,7 +38,13 @@ module Cloudwatch
 
         def check_statistics(name, label, statistics, time, data, queue_name)
           statistics.each do |stat|
-            sender.send_tcp("#{metric_prefix}.#{name}.#{queue_name}.#{label.downcase}.#{stat.downcase}" " " "#{data[stat.downcase]}" " "  "#{time}")
+            data = {
+              :tags      => { name => label.downcase, "queue_name" => queue_name },
+              :timestamp => time,
+              :values    => { :value => data[stat.downcase] }
+            }
+
+            sender.write_data(data)
           end
         end
       end

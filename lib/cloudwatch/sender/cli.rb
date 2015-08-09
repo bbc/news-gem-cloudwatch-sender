@@ -1,5 +1,10 @@
 require "thor"
+require "json"
+require "yaml"
 require "logger"
+require "openssl"
+require "influxdb"
+require "cloudwatch/sender/base"
 require "cloudwatch/sender/ec2"
 require "cloudwatch/sender/credentials"
 require "cloudwatch/sender/metric_definition"
@@ -13,7 +18,7 @@ module Cloudwatch
     class CLI < Thor
       include Thor::Actions
 
-      class_option :provider, :desc => "AWS security provider", :required => false, :enum => ["iam", "instance_profile"]
+      class_option :provider, :desc => "AWS security provider", :required => false, :enum => %w(iam instance_profile)
       class_option :access_key_id, :desc => "AWS access_key_id", :required => false
       class_option :secret_access_key, :desc => "AWS secret_key_id", :required => false
       class_option :region, :desc => "AWS region", :required => false
@@ -43,7 +48,6 @@ module Cloudwatch
           end
         end
       end
-
 
       no_commands do
         def load_metrics(metrics_file)

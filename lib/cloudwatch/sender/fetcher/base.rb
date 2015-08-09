@@ -1,5 +1,3 @@
-require "cloudwatch/sender/base"
-
 module Cloudwatch
   module Sender
     module Fetcher
@@ -28,8 +26,7 @@ module Cloudwatch
         end
 
         def fetcher(component_meta)
-          namespace.start_with?("AWS/") ? Object.const_get(class_namespace component_meta)
-                                        : Cloudwatch::Sender::Fetcher::Custom
+          namespace.start_with?("AWS/") ? Object.const_get(class_namespace component_meta) : Cloudwatch::Sender::Fetcher::Custom
         end
 
         def class_namespace(component_meta)
@@ -42,13 +39,13 @@ module Cloudwatch
 
         def metric_type(component_meta, metric)
           fetcher(component_meta).new(
-            cloudwatch, sender, metric_prefix
+            cloudwatch, sender
           ).metrics(component_meta, metric)
         end
 
         def sender
           Cloudwatch::Sender::Base.new(
-            components["influx_host"], components["influx_port"]
+            components["influx_options"], metric_prefix
           )
         end
       end

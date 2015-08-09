@@ -2,12 +2,11 @@ module Cloudwatch
   module Sender
     module Fetcher
       class Custom
-        attr_reader :metric_prefix, :cloudwatch, :sender
+        attr_reader :cloudwatch, :sender, :database
 
-        def initialize(cloudwatch, sender, metric_prefix)
+        def initialize(cloudwatch, sender)
           @cloudwatch = cloudwatch
           @sender = sender
-          @metric_prefix = metric_prefix
         end
 
         START_TIME = 180
@@ -37,7 +36,15 @@ module Cloudwatch
 
         def check_statistics(name, label, statistics, time, data)
           statistics.each do |stat|
-            sender.send_tcp("#{metric_prefix}.#{name}.#{label.downcase}.#{stat.downcase}" " " "#{data[stat.downcase]}" " "  "#{time}")
+            data = {
+              :tags      => {
+                name.tr("^A-Za-z0-9", "") => label.downcase
+              },
+              :timestamp => time,
+              :values    => { :value => data[stat.downcase] }
+            }
+
+            sender.write_data(data)
           end
         end
       end

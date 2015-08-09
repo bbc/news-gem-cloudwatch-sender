@@ -1,27 +1,22 @@
-require "json"
-require "yaml"
-
 module Cloudwatch
   module Sender
     class Base
-      def initialize(server, port)
-        @influx_server = server
-        @influx_port   = port
+      attr_reader :influxdb, :metric_prefix
+
+      def initialize(options, metric_prefix)
+        @metric_prefix = metric_prefix
+        @influxdb = InfluxDB::Client.new "graphite",
+          :username    => options["influx_username"],
+          :password    => options["influx_password"],
+          :use_ssl     => options["influx_ssl"] || false,
+          :verify_ssl  => options["influx_verify_ssl"] || false,
+          :ssl_ca_cert => options["influx_ssl_ca_cert"] || false,
+          :host        => options["influx_host"] || false
       end
 
-      def send_tcp(contents)
-        puts "#{influx_server}:#{influx_port} - #{contents}" if ENV['DEBUG']
-        sock = TCPSocket.open(influx_server, influx_port)
-        sock.print contents
-      rescue StandardError => e
-        logger.debug "Error: #{e}"
-      ensure
-        sock.close
+      def write_data(data)
+        influxdb.write_point(metric_prefix, data)
       end
-
-      protected
-
-      attr_reader :influx_server, :influx_port
     end
   end
 end
