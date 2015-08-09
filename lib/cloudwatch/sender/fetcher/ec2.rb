@@ -15,7 +15,7 @@ module Cloudwatch
 
         attr_reader :cloudwatch, :sender
 
-        START_TIME = 1800
+        START_TIME = 180
 
         def ec2_metrics(instance_list, component_meta, metric)
           instance_list.each do |instance|
