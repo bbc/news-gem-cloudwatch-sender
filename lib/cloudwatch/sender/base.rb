@@ -1,16 +1,21 @@
 module Cloudwatch
   module Sender
     class Base
-      attr_reader :influx_server, :influx_port
+      attr_reader :influxdb, :metric_prefix
 
-      def initialize(server, port)
-        @influx_server = server
-        @influx_port   = port
+      def initialize(options, metric_prefix)
+        @metric_prefix = metric_prefix
+        @influxdb = InfluxDB::Client.new "graphite",
+          :username    => options["influx_username"],
+          :password    => options["influx_password"],
+          :use_ssl     => options["influx_ssl"] || false,
+          :verify_ssl  => options["influx_verify_ssl"] || false,
+          :ssl_ca_cert => options["influx_ssl_ca_cert"] || false,
+          :host        => options["influx_host"] || false
       end
 
-      def send_tcp(contents)
-        send = API.new("#{influx_server}:#{influx_port}", ENV["BBC_COSMOS_TOOLS_CERT"])
-        send.post(contents)
+      def write_data(data)
+        influxdb.write_point(metric_prefix, data)
       end
     end
   end

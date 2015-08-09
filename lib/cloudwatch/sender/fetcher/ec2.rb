@@ -2,11 +2,9 @@ module Cloudwatch
   module Sender
     module Fetcher
       class EC2
-        def initialize(cloudwatch, sender, metric_prefix, database)
+        def initialize(cloudwatch, sender)
           @cloudwatch = cloudwatch
           @sender = sender
-          @metric_prefix = metric_prefix
-          @database = database
         end
 
         def metrics(component_meta, metric)
@@ -15,7 +13,7 @@ module Cloudwatch
 
         private
 
-        attr_reader :metric_prefix, :cloudwatch, :sender, :database
+        attr_reader :cloudwatch, :sender
 
         START_TIME = 1800
 
@@ -62,7 +60,13 @@ module Cloudwatch
 
         def check_statistics(instanceid, name, label, statistics, time, data)
           statistics.each do |stat|
-            sender.send_tcp({ "database" => database, "points" => [{ "measurement" => metric_prefix, "tags" => { name.tr("^A-Za-z0-9", "") => label.downcase, "instance" => instanceid.tr("-", "") }, "time" => time, "fields" => { "value" => data[stat.downcase] } }] }.to_json)
+            data = {
+              :tags      => { name.tr("^A-Za-z0-9", "") => label.downcase, "instance" => instanceid.tr("-", "") },
+              :timestamp => time,
+              :values    => { :value => data[stat.downcase] }
+            }
+
+            sender.write_data(data)
           end
         end
       end

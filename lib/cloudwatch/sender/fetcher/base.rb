@@ -1,5 +1,3 @@
-require "cloudwatch/sender/base"
-
 module Cloudwatch
   module Sender
     module Fetcher
@@ -39,19 +37,15 @@ module Cloudwatch
           components["metric_prefix"]
         end
 
-        def database
-          components["influx_database"]
-        end
-
         def metric_type(component_meta, metric)
           fetcher(component_meta).new(
-            cloudwatch, sender, metric_prefix, database
+            cloudwatch, sender
           ).metrics(component_meta, metric)
         end
 
         def sender
           Cloudwatch::Sender::Base.new(
-            components["influx_host"], components["influx_port"]
+            components["influx_options"], metric_prefix
           )
         end
       end
