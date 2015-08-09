@@ -1,7 +1,13 @@
 ---
 metric_prefix: "cloudwatch"
-influx_host: "influxdb.domain.com"
-influx_port: 2003
+influx_options:
+  influx_host: "influxdb.domain.com"
+  influx_database: cloudwatch
+  influx_ssl: true
+  influx_verify_ssl: true
+  influx_ssl_ca_cert: "/path/to/certs"
+  influx_username: "username"
+  influx_password: "password"
 
 metric_types:
 ## EC2 Metrics
