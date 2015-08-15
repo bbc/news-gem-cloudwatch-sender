@@ -1,4 +1,4 @@
-require "cloudwatch/version"
+require "cloudwatch/sender/version"
 
 module Cloudwatch
   module Sender
