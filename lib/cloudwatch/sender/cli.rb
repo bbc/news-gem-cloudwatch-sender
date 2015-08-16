@@ -29,6 +29,7 @@ module Cloudwatch
         MetricDefinition.metric_type load_metrics(metrics_file)
       end
 
+
       desc "continuous [metrics_file] [sleep time]", "Continuously sends metrics to Influx/Cloudwatch"
       def continuous(metrics_file, sleep_time = 60, opts = {})
         logger = Logger.new(STDOUT)
@@ -65,6 +66,11 @@ module Cloudwatch
           else
             fail ArgumentError.new("'--provider' invalid argument '#{options['provider']}'")
           end
+        end
+
+        def send_metrics_ruby(hash, opts = {})
+          setup_aws(options.merge(opts), opts["provider"])
+          MetricDefinition.metric_type hash
         end
       end
     end
