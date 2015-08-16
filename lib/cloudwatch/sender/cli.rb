@@ -66,6 +66,11 @@ module Cloudwatch
             fail ArgumentError.new("'--provider' invalid argument '#{options['provider']}'")
           end
         end
+
+        def send_metrics_ruby(hash, opts = {})
+          setup_aws(options.merge(opts), opts["provider"])
+          MetricDefinition.metric_type hash
+        end
       end
     end
   end
