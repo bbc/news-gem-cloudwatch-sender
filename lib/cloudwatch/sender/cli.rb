@@ -29,7 +29,6 @@ module Cloudwatch
         MetricDefinition.metric_type load_metrics(metrics_file)
       end
 
-
       desc "continuous [metrics_file] [sleep time]", "Continuously sends metrics to Influx/Cloudwatch"
       def continuous(metrics_file, sleep_time = 60, opts = {})
         logger = Logger.new(STDOUT)
