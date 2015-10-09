@@ -5,7 +5,7 @@ module Cloudwatch
 
       def initialize(options, metric_prefix)
         @metric_prefix = metric_prefix
-        @influxdb = InfluxDB::Client.new "graphite",
+        @influxdb = InfluxDB::Client.new options["influx_database"] || "graphite",
           :username    => options["influx_username"],
           :password    => options["influx_password"],
           :use_ssl     => options["influx_ssl"] || false,
