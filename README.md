@@ -37,13 +37,13 @@ gem install cloudwatch-sender
 ### Command Line
 
 ```sh
-cloudwatch-sender send_metrics /path/to/config.yaml --region=eu-west-1 --access-key-id=$AWS_ACCESS_KEY --secret-access-key= $AWS_SECRET_KEY
+cloudwatch-sender send_metrics /path/to/config.yaml --region=eu-west-1 --access-key-id=$AWS_ACCESS_KEY --secret-access-key=$AWS_SECRET_KEY
 ```
 
 If you would like to stream metrics to your endpoint at a set interval, use `continuous`:
 
 ```sh
-cloudwatch-sender continuous /path/to/config.yaml --region=eu-west-1 $INTERVAL --access-key-id=$AWS_ACCESS_KEY --secret-access-key= $AWS_SECRET_KEY
+cloudwatch-sender continuous /path/to/config.yaml --region=eu-west-1 $INTERVAL --access-key-id=$AWS_ACCESS_KEY --secret-access-key=$AWS_SECRET_KEY
 ```
 
 **Note** - the default `$INTERVAL` is 60 seconds.
